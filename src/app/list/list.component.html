@@ -1,0 +1,54 @@
+<div class="bg-white overflow-hidden shadow rounded-lg">
+  <div class="sm:px-6 lg:px-8 py-6">
+    <div class="flex justify-center">
+      <a  routerLink="/list/{{listId}}/add">
+        <button type="button" class="mr-2 relative inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <span>
+            Add
+          </span>
+        </button>
+      </a>
+    </div>
+    <div class="bg-white shadow overflow-hidden mt-2 md:mt-4 sm:rounded-md">
+      <ul class="divide-y divide-gray-200">
+        <li *ngFor="let item of items|orderByPrio">
+          <div class="block hover:bg-gray-50">
+            <div class="flex items-center px-4 py-4 sm:px-6"  [class.bg-gray-100]="item.isDone === true">
+              <div class="min-w-0 flex-1 flex items-center">
+                <div class="flex-shrink-0">
+                  {{item.prio | mapPriority}}
+                </div>
+                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                  <div>
+                    <p class="text-sm font-medium" [class.line-through]="item.isDone === true">{{item.text}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <button (click)="markItemDone(item)" type="button" class="mr-2 relative inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg class="-ml-1 mr-2 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="hidden md:block">
+                  Done
+                </span>
+              </button>
+
+              <button (click)="removeItem(item)" type="button" class=" relative inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg class="-ml-1 mr-2 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span class="hidden md:block">
+                  Trash
+                </span>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="action === 'add'">
+      <app-add></app-add>
+    </div>
+  </div>
+</div>
