@@ -1,0 +1,10 @@
+overwrite: true
+schema: 
+  - "https://ng-awesome-todo.herokuapp.com/v1/graphql":
+generates:
+  src/components.ts:
+    documents: "src/graphql/**/*.graphql" 
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular

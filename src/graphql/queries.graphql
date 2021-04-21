@@ -1,0 +1,11 @@
+query GetList($slug: String!) {
+  lists_by_pk(slug: $slug) {
+    todos(order_by: {isDone: asc, prio: asc}) {
+      __typename
+      id
+      prio
+      text
+      isDone
+    }
+  }
+}

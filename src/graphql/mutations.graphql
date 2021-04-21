@@ -1,0 +1,16 @@
+mutation AddTodo($text:String!, $prio: Int!, $listSlug: String!) {
+  insert_todos_one(object: {isDone: false, prio: $prio, text: $text, listSlug: $listSlug}){
+    __typename
+    id
+  }
+}
+
+mutation PatchTodo($id: uuid!, $set: todos_set_input!) {
+  update_todos_by_pk(pk_columns: {id: $id}, _set: $set) {
+    id
+  }
+}
+
+mutation DeleteTodo($id: uuid!) {
+  delete_todos_by_pk(id: $id){__typename}
+}
