@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
-import { MapPriority } from './mapPriority.pipe';
+import { MapPriority } from './map-priority';
 import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoDataService } from './todo-data.service';
