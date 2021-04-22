@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddTodoGQL, GetListGQL, GetListDocument } from 'src/components';
-import { TodoDataService } from '../todo-data.service';
+import { AddTodoGQL, GetListDocument } from 'src/components';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +17,7 @@ export class AddComponent implements OnInit {
   action = this.route.snapshot.paramMap.get('action')
   listId = this.route.snapshot.paramMap.get('id')
 
-  constructor(private route: ActivatedRoute, private router: Router, private addTodoMutation:AddTodoGQL, private getListQuery:GetListGQL) { }
+  constructor(private route: ActivatedRoute, private router: Router, private addTodoMutation:AddTodoGQL) { }
 
   ngOnInit(): void { 
     this.route.params.subscribe(params => {
@@ -29,7 +28,7 @@ export class AddComponent implements OnInit {
 
   async onSubmit(){
     const values = this.addForm.value
-    
+
     await this.addTodoMutation.mutate({text:values.text, prio:Number(values.prio), listSlug: this.listId }, {refetchQueries: [{
       query: GetListDocument,
       variables: { slug: this.listId },

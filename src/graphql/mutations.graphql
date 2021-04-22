@@ -14,3 +14,7 @@ mutation PatchTodo($id: uuid!, $set: todos_set_input!) {
 mutation DeleteTodo($id: uuid!) {
   delete_todos_by_pk(id: $id){__typename}
 }
+
+mutation AddList($slug: String!, $name: String!) {
+  insert_lists_one(object: {slug: $slug, name: $name}){slug}
+}

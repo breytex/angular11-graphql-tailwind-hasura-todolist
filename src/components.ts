@@ -514,6 +514,20 @@ export type DeleteTodoMutation = (
   & { delete_todos_by_pk?: Maybe<{ __typename: 'todos' }> }
 );
 
+export type AddListMutationVariables = Exact<{
+  slug: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type AddListMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_lists_one?: Maybe<(
+    { __typename?: 'lists' }
+    & Pick<Lists, 'slug'>
+  )> }
+);
+
 export type GetListQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
@@ -523,6 +537,7 @@ export type GetListQuery = (
   { __typename?: 'query_root' }
   & { lists_by_pk?: Maybe<(
     { __typename?: 'lists' }
+    & Pick<Lists, 'name'>
     & { todos: Array<(
       { __typename: 'todos' }
       & Pick<Todos, 'id' | 'prio' | 'text' | 'isDone'>
@@ -587,9 +602,28 @@ export const DeleteTodoDocument = gql`
       super(apollo);
     }
   }
+export const AddListDocument = gql`
+    mutation AddList($slug: String!, $name: String!) {
+  insert_lists_one(object: {slug: $slug, name: $name}) {
+    slug
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddListGQL extends Apollo.Mutation<AddListMutation, AddListMutationVariables> {
+    document = AddListDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const GetListDocument = gql`
     query GetList($slug: String!) {
   lists_by_pk(slug: $slug) {
+    name
     todos(order_by: {isDone: asc, prio: asc}) {
       __typename
       id

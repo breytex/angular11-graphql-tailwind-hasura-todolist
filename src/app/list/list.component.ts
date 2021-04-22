@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { GetListDocument, GetListGQL, GetListQuery, PatchTodoGQL, DeleteTodoGQL } from 'src/components';
+import { GetListDocument, GetListGQL, GetListQuery, PatchTodoGQL, DeleteTodoGQL, AddListGQL } from 'src/components';
 import { Item } from './Item';
 
 @Component({
@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
   }
 
   items = [] as GetListQuery["lists_by_pk"]["todos"]
+  name = ""
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -28,15 +29,16 @@ export class ListComponent implements OnInit {
       this.listId = params['id'];
     });
 
-   this.getListQuery.watch({slug:"test-test"}).valueChanges.subscribe(items => {
+    this.getListQuery.watch({slug: this.listId}).valueChanges.subscribe(items => {
      if(items?.data?.lists_by_pk?.todos){
        this.items = items.data.lists_by_pk.todos
+       this.name = items.data.lists_by_pk.name
      }
-  })
+    })
   }
 
    markItemDone(item: Item){
-    return this.patchTodoMutation.mutate({id: item.id, set: {isDone: true}}, {refetchQueries: [{
+    return this.patchTodoMutation.mutate({id: item.id, set: {isDone: !item.isDone}}, {refetchQueries: [{
       query: GetListDocument,
       variables: { slug: this.listId },
     }]}).toPromise()
