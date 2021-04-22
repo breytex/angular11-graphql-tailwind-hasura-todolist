@@ -1,27 +1,20 @@
 # Ng awesome todolist
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
+Had to learn some angular and built yet another todolist app with it :D
+Stack includes:
+- angular 11
+- tailwind (some components copy pasted from tailwind UI)
+- apollo client for angular
+- [graphql codegen](https://www.graphql-code-generator.com/)
+- [hasura](https://hasura.io/)
+- postgres
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Backend / API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+I have deployed a test backend to Heroku: https://ng-awesome-todo.herokuapp.com/v1/graphql
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Its also possible to start a local hasura instance with `docker-compose up`. I will provide a postgres dump when the app is done.
