@@ -25,7 +25,7 @@ import { TodoDataService } from './todo-data.service';
   ],
   imports: [
     ReactiveFormsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     AppRoutingModule,
     HttpClientModule
