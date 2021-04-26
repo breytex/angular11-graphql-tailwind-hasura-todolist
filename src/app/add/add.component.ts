@@ -14,14 +14,13 @@ export class AddComponent implements OnInit {
     prio: new FormControl(''),
   })
 
-  action = this.route.snapshot.paramMap.get('action')
-  listId = this.route.snapshot.paramMap.get('id')
+  action:string;
+  listId:string;
 
   constructor(private route: ActivatedRoute, private router: Router, private addTodoMutation:AddTodoGQL) { }
 
   ngOnInit(): void { 
-    this.route.params.subscribe(params => {
-      this.action = params['action'];
+    this.route.parent.params.subscribe(params => {
       this.listId = params['id'];
     });
   }
@@ -34,7 +33,7 @@ export class AddComponent implements OnInit {
       variables: { slug: this.listId },
     }]}).toPromise()
 
-    this.router.navigate(["list", this.listId, "view"])
+    this.router.navigate(["list", this.listId])
   }
 
 }

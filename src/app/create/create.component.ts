@@ -27,6 +27,6 @@ export class CreateComponent implements OnInit {
     }catch(e){
       console.error("List with this slug already exists")
     }
-    this.router.navigate(["list", slug, "view"])
+    this.router.navigate(["list", slug])
   }
 }
