@@ -4,7 +4,6 @@ import { Subscription, Observable } from 'rxjs';
 import { GetListDocument, GetListGQL, GetListQuery, PatchTodoGQL, DeleteTodoGQL, AddListGQL } from 'src/components';
 import { Item } from './Item';
 import { map } from 'rxjs/operators';
-import { workerData } from 'node:worker_threads';
 
 interface DataType {
   items:GetListQuery["lists_by_pk"]["todos"];
