@@ -1,11 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { GetListDocument, GetListGQL, GetListQuery, PatchTodoGQL, DeleteTodoGQL, AddListGQL } from 'src/components';
 import { Item } from './Item';
 import { map } from 'rxjs/operators';
-import Observable from 'zen-observable';
+import { workerData } from 'node:worker_threads';
 
+interface DataType {
+  items:GetListQuery["lists_by_pk"]["todos"];
+  name: string;
+}
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -22,10 +26,8 @@ export class ListComponent implements OnInit, OnDestroy {
     
   }
 
-  items = [] as GetListQuery["lists_by_pk"]["todos"]
-  name = ""
   routerSub: Subscription
-  data$: any
+  data$: Observable<DataType>
 
   ngOnInit(): void {
     this.routerSub = this.route.params.subscribe(params => {
@@ -34,10 +36,12 @@ export class ListComponent implements OnInit, OnDestroy {
     });
 
     this.data$ = this.getListQuery.watch({slug: this.listId}).valueChanges.pipe(map(items => {
-      return {
+      const data: DataType = {
         items: items.data.lists_by_pk.todos,
         name: items.data.lists_by_pk.name
       }
+
+      return data
     }))
   }
 
